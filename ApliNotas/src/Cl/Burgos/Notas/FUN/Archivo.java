@@ -25,7 +25,9 @@ import java.util.regex.Pattern;
  * @author march
  */
 public class Archivo {
-    public static List<ClPuntos> nombres2 = new ArrayList();
+//    public static List<ClPuntos> nombres2 = new ArrayList();
+    public static List<ClPuntos> nombres2 = new ArrayList<>();
+
     public void leerARchivo(){
         File archivo = null;
         FileReader fr = null;

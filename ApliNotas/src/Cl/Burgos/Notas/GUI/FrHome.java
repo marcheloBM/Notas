@@ -5,15 +5,9 @@
  */
 package Cl.Burgos.Notas.GUI;
 
-import Cl.Burgos.Notas.DAO.DAOPuntos;
-import Cl.Burgos.Notas.ENT.ClNota;
-import Cl.Burgos.Notas.ENT.ClPuntos;
-import Cl.Burgos.Notas.FUN.Actualizacion;
-import Cl.Burgos.Notas.FUN.Archivo;
-import Cl.Burgos.Notas.FUN.Confi;
-import Cl.Burgos.Notas.FUN.ImprimirPDF;
-import Cl.Burgos.Notas.FUN.Log;
-import Cl.Burgos.Notas.FUN.Puntos;
+import Cl.Burgos.Notas.DAO.*;
+import Cl.Burgos.Notas.ENT.*;
+import Cl.Burgos.Notas.FUN.*;
 import java.awt.Desktop;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -21,6 +15,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.NumberFormat;
@@ -47,7 +42,7 @@ public class FrHome extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false); 
-        setTitle("Calcular Nota Version: "+Confi.Version);
+        setTitle("Calcular Nota Version: "+Confi.versionActual);
         String url="/Cl/Burgos/Notas/IMG/";
         setIconImage(new ImageIcon(getClass().getResource(url+"nota.png")).getImage());
         ((JPanel)getContentPane()).setOpaque(false);
@@ -74,23 +69,9 @@ public class FrHome extends javax.swing.JFrame {
         
 //        rellenarPrueba();
         limpiar();
-        jMenuItem1.setVisible(Update());        
+        jMenuItem1.setVisible(true);        
     }
     
-    public boolean Update(){
-        boolean resp;
-        if(Actualizacion.verificarConexion()){
-            if(Actualizacion.obtenerVersion().equals(Confi.Version)){
-                resp=false;
-            }else{
-                resp=true;                
-                JOptionPane.showMessageDialog(null, "Hay Actualizacion Disponible");
-            }
-        }else{
-            resp=false;
-        }
-        return resp;
-    }
     public void rellenarPrueba(){
         txtNombre.setText(Confi.Nombre);
         txtRetraso.setText(Confi.Retraso);
@@ -304,7 +285,7 @@ public class FrHome extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel27)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNotaParcial, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)))
+                                .addComponent(txtNotaParcial, javax.swing.GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel28)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -623,13 +604,13 @@ public class FrHome extends javax.swing.JFrame {
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(170, 170, 170)
-                        .addComponent(btnCalcular, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                        .addComponent(btnCalcular, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGenerrarPDF, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                        .addComponent(btnGenerrarPDF, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnVistaWEB, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                        .addComponent(btnVistaWEB, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                         .addGap(198, 198, 198)))
                 .addContainerGap())
         );
@@ -820,52 +801,6 @@ public class FrHome extends javax.swing.JFrame {
         limpiar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        new FrUpdate().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-        URL url=null;
-        try {
-            url = new URL("https://marchelo1989.github.io/");
-            try {
-                Desktop.getDesktop().browse(url.toURI());
-            } catch (IOException e) {
-                Log.log("Error en Clase FrContacto: "+e.getMessage());
-                e.printStackTrace();
-            } catch (URISyntaxException e) {
-                Log.log("Error en Clase FrContacto: "+e.getMessage());
-                e.printStackTrace();
-            }
-        } catch (MalformedURLException e1) {
-            Log.log("Error en Clase FrContacto: "+e1.getMessage());
-            e1.printStackTrace();
-        }
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-        URL url=null;
-        try {
-            url = new URL("https://api.whatsapp.com/send?phone=+56920473627");
-            try {
-                Desktop.getDesktop().browse(url.toURI());
-            } catch (IOException e) {
-                Log.log("Error en Clase FrContacto: "+e.getMessage());
-                e.printStackTrace();
-            } catch (URISyntaxException e) {
-                Log.log("Error en Clase FrContacto: "+e.getMessage());
-                e.printStackTrace();
-            }
-        } catch (MalformedURLException e1) {
-            Log.log("Error en Clase FrContacto: "+e1.getMessage());
-            e1.printStackTrace();
-        }
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     private void btnVistaWEBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVistaWEBActionPerformed
         // TODO add your handling code here:
         String nombre=txtNombre.getText();
@@ -894,6 +829,54 @@ public class FrHome extends javax.swing.JFrame {
         new Archivo().CrearArchivoWEB(clNota);
         limpiar();
     }//GEN-LAST:event_btnVistaWEBActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        URL url=null;
+        try {
+            URI uri = URI.create("https://api.whatsapp.com/send?phone=+56920473627");
+            url = uri.toURL();
+            try {
+                Desktop.getDesktop().browse(url.toURI());
+            } catch (IOException e) {
+                Log.log("Error en Clase FrContacto: "+e.getMessage());
+                e.printStackTrace();
+            } catch (URISyntaxException e) {
+                Log.log("Error en Clase FrContacto: "+e.getMessage());
+                e.printStackTrace();
+            }
+        } catch (MalformedURLException e1) {
+            Log.log("Error en Clase FrContacto: "+e1.getMessage());
+            e1.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        URL url=null;
+        try {
+            URI uri = URI.create("https://marchelobm.github.io/");
+            url = uri.toURL();
+            try {
+                Desktop.getDesktop().browse(url.toURI());
+            } catch (IOException e) {
+                Log.log("Error en Clase FrContacto: "+e.getMessage());
+                e.printStackTrace();
+            } catch (URISyntaxException e) {
+                Log.log("Error en Clase FrContacto: "+e.getMessage());
+                e.printStackTrace();
+            }
+        } catch (MalformedURLException e1) {
+            Log.log("Error en Clase FrContacto: "+e1.getMessage());
+            e1.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        new GitHubReleaseGUI().main(new String[]{});
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     public void Calcular(){
         int intro,desa,conc,cita,form;

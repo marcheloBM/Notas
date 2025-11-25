@@ -37,6 +37,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import com.itextpdf.io.font.constants.StandardFonts;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
 
 
 /**
@@ -418,7 +421,7 @@ public class ImprimirPDF {
             //Arriba,Abajo,derecha,izqueda
             doc.setMargins(20, 20, 50, 50);
             
-            PdfFont font1 = PdfFontFactory.createFont(FontConstants.COURIER);
+            PdfFont font1 = PdfFontFactory.createFont(StandardFonts.COURIER);
 //            PdfFont font2 = PdfFontFactory.createFont(FontConstants.TIMES_ITALIC);
             
             com.itextpdf.layout.element.Paragraph parrafo1 = new com.itextpdf.layout.element.Paragraph("Notas Ensayo 1").setFont(font1);
